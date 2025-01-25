@@ -4,45 +4,52 @@ import java.security.*;
 import java.text.*;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.*;
 import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-
-class Result {
-
-    /*
-     * Complete the 'birthdayCakeCandles' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts INTEGER_ARRAY candles as parameter.
-     */
-
-    public static int birthdayCakeCandles(List<Integer> candles) {
-    // Write your code here
-
-    }
-
-}
 
 public class Solution {
+
+    // Complete the birthdayCakeCandles function below.
+    static int birthdayCakeCandles(int[] ar) {
+        int max=ar[0];
+        for(int i=1;i<ar.length;i++){
+         if(max<ar[i]){
+             max=ar[i];
+         }   
+        }
+        int nb = 0;
+        for(int j=0;j<ar.length;j++){
+            if(ar[j]==max){
+                nb++;
+            }
+        }
+        return nb;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int candlesCount = Integer.parseInt(bufferedReader.readLine().trim());
+        int arCount = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        List<Integer> candles = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-            .map(Integer::parseInt)
-            .collect(toList());
+        int[] ar = new int[arCount];
 
-        int result = Result.birthdayCakeCandles(candles);
+        String[] arItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < arCount; i++) {
+            int arItem = Integer.parseInt(arItems[i]);
+            ar[i] = arItem;
+        }
+
+        int result = birthdayCakeCandles(ar);
 
         bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
 
-        bufferedReader.close();
         bufferedWriter.close();
+
+        scanner.close();
     }
 }
