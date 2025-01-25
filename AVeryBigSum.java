@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class VeryBigSum {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
