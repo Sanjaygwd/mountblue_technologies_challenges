@@ -4,11 +4,7 @@ import java.security.*;
 import java.text.*;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.*;
 import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
 class Result {
 
@@ -21,7 +17,15 @@ class Result {
 
     public static int diagonalDifference(List<List<Integer>> arr) {
     // Write your code here
+        int left  = 0;
+        int right = 0;
+        for(int i=0;i<arr.size();i++)
+        {
+            left += arr.get(i).get(i);
+            right += arr.get(i).get(arr.size()-(i+1));
 
+        }
+        return Math.abs(left - right);
     }
 
 }
@@ -35,17 +39,18 @@ public class Solution {
 
         List<List<Integer>> arr = new ArrayList<>();
 
-        IntStream.range(0, n).forEach(i -> {
-            try {
-                arr.add(
-                    Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                        .map(Integer::parseInt)
-                        .collect(toList())
-                );
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+        for (int i = 0; i < n; i++) {
+            String[] arrRowTempItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+            List<Integer> arrRowItems = new ArrayList<>();
+
+            for (int j = 0; j < n; j++) {
+                int arrItem = Integer.parseInt(arrRowTempItems[j]);
+                arrRowItems.add(arrItem);
             }
-        });
+
+            arr.add(arrRowItems);
+        }
 
         int result = Result.diagonalDifference(arr);
 
